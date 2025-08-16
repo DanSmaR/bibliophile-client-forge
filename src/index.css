@@ -8,33 +8,49 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Book e-commerce theme - Literary & warm */
+    --background: 35 20% 98%;
+    --foreground: 25 25% 15%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 35 30% 97%;
+    --card-foreground: 25 25% 15%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 35 30% 97%;
+    --popover-foreground: 25 25% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 155 35% 25%;
+    --primary-foreground: 35 20% 98%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 35 25% 88%;
+    --secondary-foreground: 25 25% 15%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 35 20% 92%;
+    --muted-foreground: 25 15% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 43 74% 66%;
+    --accent-foreground: 25 25% 15%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 35 20% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 35 20% 85%;
+    --input: 35 20% 90%;
+    --ring: 155 35% 25%;
+
+    /* Custom design tokens */
+    --literary-brown: 25 35% 20%;
+    --warm-cream: 35 25% 95%;
+    --forest-green: 155 35% 25%;
+    --gold-accent: 43 74% 66%;
+    --sage-green: 155 20% 65%;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--sage-green)));
+    --gradient-warm: linear-gradient(180deg, hsl(var(--warm-cream)), hsl(var(--background)));
+    
+    /* Shadows */
+    --shadow-elegant: 0 4px 20px -4px hsl(var(--primary) / 0.15);
+    --shadow-soft: 0 2px 8px -2px hsl(var(--literary-brown) / 0.1);
 
     --radius: 0.5rem;
 
@@ -56,33 +72,39 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 25 25% 8%;
+    --foreground: 35 20% 95%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 25 25% 10%;
+    --card-foreground: 35 20% 95%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 25 25% 10%;
+    --popover-foreground: 35 20% 95%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 155 30% 70%;
+    --primary-foreground: 25 25% 8%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 25 20% 18%;
+    --secondary-foreground: 35 20% 95%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 25 20% 18%;
+    --muted-foreground: 35 15% 65%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 43 60% 55%;
+    --accent-foreground: 25 25% 8%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 35 20% 95%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --border: 25 20% 18%;
+    --input: 25 20% 18%;
+    --ring: 155 30% 70%;
+
+    --literary-brown: 35 20% 85%;
+    --warm-cream: 25 15% 15%;
+    --forest-green: 155 30% 70%;
+    --gold-accent: 43 60% 55%;
+    --sage-green: 155 25% 45%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
