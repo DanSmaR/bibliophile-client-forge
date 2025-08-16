@@ -7,21 +7,21 @@ import { Separator } from '@/components/ui/separator';
 
 const mockCustomer = {
   id: 1,
-  name: 'Emma Thompson',
-  email: 'emma.thompson@email.com',
-  phone: '+1 (555) 123-4567',
-  address: '123 Literary Lane, Boston, MA 02101',
-  status: 'Active',
+  name: 'Ana Silva',
+  email: 'ana.silva@email.com',
+  phone: '+55 (11) 99123-4567',
+  address: 'Rua das Letras, 123, São Paulo, SP 01234-567',
+  status: 'Ativo',
   orders: 12,
-  totalSpent: '$1,247.50',
-  joinDate: '2023-01-15',
-  lastOrder: '2024-01-15',
-  notes: 'Prefers classic literature and poetry collections. Frequent customer with high-value orders.',
-  preferences: ['Classic Literature', 'Poetry', 'Historical Fiction'],
+  totalSpent: 'R$ 1.247,50',
+  joinDate: '15/01/2023',
+  lastOrder: '15/01/2024',
+  notes: 'Prefere literatura clássica e coleções de poesia. Cliente frequente com pedidos de alto valor.',
+  preferences: ['Literatura Clássica', 'Poesia', 'Ficção Histórica'],
   recentOrders: [
-    { id: 1001, date: '2024-01-15', total: '$89.50', status: 'Completed' },
-    { id: 1000, date: '2024-01-02', total: '$124.75', status: 'Completed' },
-    { id: 999, date: '2023-12-18', total: '$67.30', status: 'Completed' }
+    { id: 1001, date: '15/01/2024', total: 'R$ 89,50', status: 'Concluído' },
+    { id: 1000, date: '02/01/2024', total: 'R$ 124,75', status: 'Concluído' },
+    { id: 999, date: '18/12/2023', total: 'R$ 67,30', status: 'Concluído' }
   ]
 };
 
@@ -40,11 +40,11 @@ const CustomerDetail = () => {
           </Link>
           <div>
             <h1 className="text-3xl font-bold text-foreground">{mockCustomer.name}</h1>
-            <p className="text-muted-foreground">Customer #{mockCustomer.id}</p>
+            <p className="text-muted-foreground">Cliente #{mockCustomer.id}</p>
           </div>
           <Badge 
-            variant={mockCustomer.status === 'Active' ? 'default' : 'secondary'}
-            className={mockCustomer.status === 'Active' 
+            variant={mockCustomer.status === 'Ativo' ? 'default' : 'secondary'}
+            className={mockCustomer.status === 'Ativo' 
               ? 'bg-forest-green text-primary-foreground' 
               : 'bg-muted text-muted-foreground'
             }
@@ -56,12 +56,12 @@ const CustomerDetail = () => {
           <Link to={`/customers/${id}/edit`}>
             <Button variant="outline">
               <Edit className="h-4 w-4 mr-2" />
-              Edit Customer
+              Editar Cliente
             </Button>
           </Link>
           <Button variant="destructive" className="bg-destructive hover:bg-destructive/90">
             <Trash2 className="h-4 w-4 mr-2" />
-            Delete
+            Excluir
           </Button>
         </div>
       </div>
@@ -71,21 +71,21 @@ const CustomerDetail = () => {
         <div className="lg:col-span-2 space-y-6">
           <Card className="shadow-soft">
             <CardHeader>
-              <CardTitle className="text-foreground">Contact Information</CardTitle>
+              <CardTitle className="text-foreground">Informações de Contato</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="flex items-center space-x-3">
                   <Mail className="h-5 w-5 text-primary" />
                   <div>
-                    <p className="text-sm text-muted-foreground">Email</p>
+                    <p className="text-sm text-muted-foreground">E-mail</p>
                     <p className="font-medium text-foreground">{mockCustomer.email}</p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Phone className="h-5 w-5 text-primary" />
                   <div>
-                    <p className="text-sm text-muted-foreground">Phone</p>
+                    <p className="text-sm text-muted-foreground">Telefone</p>
                     <p className="font-medium text-foreground">{mockCustomer.phone}</p>
                   </div>
                 </div>
@@ -93,7 +93,7 @@ const CustomerDetail = () => {
               <div className="flex items-start space-x-3">
                 <MapPin className="h-5 w-5 text-primary mt-0.5" />
                 <div>
-                  <p className="text-sm text-muted-foreground">Address</p>
+                  <p className="text-sm text-muted-foreground">Endereço</p>
                   <p className="font-medium text-foreground">{mockCustomer.address}</p>
                 </div>
               </div>
@@ -102,7 +102,7 @@ const CustomerDetail = () => {
 
           <Card className="shadow-soft">
             <CardHeader>
-              <CardTitle className="text-foreground">Customer Notes</CardTitle>
+              <CardTitle className="text-foreground">Observações do Cliente</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-foreground leading-relaxed">{mockCustomer.notes}</p>
@@ -111,7 +111,7 @@ const CustomerDetail = () => {
 
           <Card className="shadow-soft">
             <CardHeader>
-              <CardTitle className="text-foreground">Reading Preferences</CardTitle>
+              <CardTitle className="text-foreground">Preferências de Leitura</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex flex-wrap gap-2">
@@ -129,34 +129,34 @@ const CustomerDetail = () => {
         <div className="space-y-6">
           <Card className="shadow-soft">
             <CardHeader>
-              <CardTitle className="text-foreground">Customer Stats</CardTitle>
+              <CardTitle className="text-foreground">Estatísticas do Cliente</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
                   <Package className="h-4 w-4 text-primary" />
-                  <span className="text-muted-foreground">Total Orders</span>
+                  <span className="text-muted-foreground">Total de Pedidos</span>
                 </div>
                 <span className="font-semibold text-foreground">{mockCustomer.orders}</span>
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
                   <DollarSign className="h-4 w-4 text-accent" />
-                  <span className="text-muted-foreground">Total Spent</span>
+                  <span className="text-muted-foreground">Total Gasto</span>
                 </div>
                 <span className="font-semibold text-accent">{mockCustomer.totalSpent}</span>
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
                   <Calendar className="h-4 w-4 text-primary" />
-                  <span className="text-muted-foreground">Customer Since</span>
+                  <span className="text-muted-foreground">Cliente Desde</span>
                 </div>
                 <span className="font-semibold text-foreground">{mockCustomer.joinDate}</span>
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
                   <Calendar className="h-4 w-4 text-primary" />
-                  <span className="text-muted-foreground">Last Order</span>
+                  <span className="text-muted-foreground">Último Pedido</span>
                 </div>
                 <span className="font-semibold text-foreground">{mockCustomer.lastOrder}</span>
               </div>
@@ -165,7 +165,7 @@ const CustomerDetail = () => {
 
           <Card className="shadow-soft">
             <CardHeader>
-              <CardTitle className="text-foreground">Recent Orders</CardTitle>
+              <CardTitle className="text-foreground">Pedidos Recentes</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
               {mockCustomer.recentOrders.map((order, index) => (

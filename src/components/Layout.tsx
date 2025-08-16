@@ -10,7 +10,7 @@ const Layout = ({ children }: LayoutProps) => {
   const location = useLocation();
 
   const navigation = [
-    { name: 'Customers', href: '/customers', icon: Users },
+    { name: 'Clientes', href: '/customers', icon: Users },
   ];
 
   return (

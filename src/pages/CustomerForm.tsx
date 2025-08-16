@@ -14,31 +14,31 @@ const CustomerForm = () => {
 
   // Mock data for edit mode
   const mockData = isEdit ? {
-    name: 'Emma Thompson',
-    email: 'emma.thompson@email.com',
-    phone: '+1 (555) 123-4567',
-    address: '123 Literary Lane',
-    city: 'Boston',
-    state: 'MA',
-    zipCode: '02101',
-    status: 'Active',
-    notes: 'Prefers classic literature and poetry collections. Frequent customer with high-value orders.',
-    preferences: ['Classic Literature', 'Poetry']
+    name: 'Ana Silva',
+    email: 'ana.silva@email.com',
+    phone: '+55 (11) 99123-4567',
+    address: 'Rua das Letras, 123',
+    city: 'São Paulo',
+    state: 'SP',
+    zipCode: '01234-567',
+    status: 'Ativo',
+    notes: 'Prefere literatura clássica e coleções de poesia. Cliente frequente com pedidos de alto valor.',
+    preferences: ['Literatura Clássica', 'Poesia']
   } : {};
 
   const genres = [
-    'Classic Literature',
-    'Contemporary Fiction',
-    'Mystery & Thriller',
-    'Science Fiction',
-    'Fantasy',
+    'Literatura Clássica',
+    'Ficção Contemporânea',
+    'Mistério e Suspense',
+    'Ficção Científica',
+    'Fantasia',
     'Romance',
-    'Poetry',
-    'Non-Fiction',
-    'Biography',
-    'History',
-    'Philosophy',
-    'Self-Help'
+    'Poesia',
+    'Não-Ficção',
+    'Biografia',
+    'História',
+    'Filosofia',
+    'Autoajuda'
   ];
 
   return (
@@ -53,16 +53,16 @@ const CustomerForm = () => {
           </Link>
           <div>
             <h1 className="text-3xl font-bold text-foreground">
-              {isEdit ? 'Edit Customer' : 'Add New Customer'}
+              {isEdit ? 'Editar Cliente' : 'Adicionar Novo Cliente'}
             </h1>
             <p className="text-muted-foreground">
-              {isEdit ? 'Update customer information' : 'Create a new customer profile'}
+              {isEdit ? 'Atualizar informações do cliente' : 'Criar um novo perfil de cliente'}
             </p>
           </div>
         </div>
         <Button className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-elegant">
           <Save className="h-4 w-4 mr-2" />
-          {isEdit ? 'Update Customer' : 'Save Customer'}
+          {isEdit ? 'Atualizar Cliente' : 'Salvar Cliente'}
         </Button>
       </div>
 
@@ -71,50 +71,50 @@ const CustomerForm = () => {
         <div className="lg:col-span-2 space-y-6">
           <Card className="shadow-soft">
             <CardHeader>
-              <CardTitle className="text-foreground">Basic Information</CardTitle>
+              <CardTitle className="text-foreground">Informações Básicas</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="name" className="text-foreground">Full Name *</Label>
+                  <Label htmlFor="name" className="text-foreground">Nome Completo *</Label>
                   <Input 
                     id="name" 
                     defaultValue={mockData.name} 
-                    placeholder="Enter customer's full name"
+                    placeholder="Digite o nome completo do cliente"
                     className="bg-background border-border focus:ring-primary"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="email" className="text-foreground">Email Address *</Label>
+                  <Label htmlFor="email" className="text-foreground">Endereço de E-mail *</Label>
                   <Input 
                     id="email" 
                     type="email" 
                     defaultValue={mockData.email}
-                    placeholder="customer@email.com"
+                    placeholder="cliente@email.com"
                     className="bg-background border-border focus:ring-primary"
                   />
                 </div>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="phone" className="text-foreground">Phone Number</Label>
+                  <Label htmlFor="phone" className="text-foreground">Número de Telefone</Label>
                   <Input 
                     id="phone" 
                     defaultValue={mockData.phone}
-                    placeholder="+1 (555) 123-4567"
+                    placeholder="+55 (11) 99123-4567"
                     className="bg-background border-border focus:ring-primary"
                   />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="status" className="text-foreground">Status</Label>
-                  <Select defaultValue={mockData.status || "Active"}>
+                  <Select defaultValue={mockData.status || "Ativo"}>
                     <SelectTrigger className="bg-background border-border">
-                      <SelectValue placeholder="Select status" />
+                      <SelectValue placeholder="Selecione o status" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="Active">Active</SelectItem>
-                      <SelectItem value="Inactive">Inactive</SelectItem>
-                      <SelectItem value="Suspended">Suspended</SelectItem>
+                      <SelectItem value="Ativo">Ativo</SelectItem>
+                      <SelectItem value="Inativo">Inativo</SelectItem>
+                      <SelectItem value="Suspenso">Suspenso</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -124,43 +124,43 @@ const CustomerForm = () => {
 
           <Card className="shadow-soft">
             <CardHeader>
-              <CardTitle className="text-foreground">Address Information</CardTitle>
+              <CardTitle className="text-foreground">Informações de Endereço</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="address" className="text-foreground">Street Address</Label>
+                <Label htmlFor="address" className="text-foreground">Endereço</Label>
                 <Input 
                   id="address" 
                   defaultValue={mockData.address}
-                  placeholder="123 Main Street"
+                  placeholder="Rua Principal, 123"
                   className="bg-background border-border focus:ring-primary"
                 />
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="city" className="text-foreground">City</Label>
+                  <Label htmlFor="city" className="text-foreground">Cidade</Label>
                   <Input 
                     id="city" 
                     defaultValue={mockData.city}
-                    placeholder="City"
+                    placeholder="Cidade"
                     className="bg-background border-border focus:ring-primary"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="state" className="text-foreground">State</Label>
+                  <Label htmlFor="state" className="text-foreground">Estado</Label>
                   <Input 
                     id="state" 
                     defaultValue={mockData.state}
-                    placeholder="State"
+                    placeholder="Estado"
                     className="bg-background border-border focus:ring-primary"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="zipCode" className="text-foreground">ZIP Code</Label>
+                  <Label htmlFor="zipCode" className="text-foreground">CEP</Label>
                   <Input 
                     id="zipCode" 
                     defaultValue={mockData.zipCode}
-                    placeholder="12345"
+                    placeholder="12345-678"
                     className="bg-background border-border focus:ring-primary"
                   />
                 </div>
@@ -170,15 +170,15 @@ const CustomerForm = () => {
 
           <Card className="shadow-soft">
             <CardHeader>
-              <CardTitle className="text-foreground">Additional Notes</CardTitle>
+              <CardTitle className="text-foreground">Observações Adicionais</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-2">
-                <Label htmlFor="notes" className="text-foreground">Customer Notes</Label>
+                <Label htmlFor="notes" className="text-foreground">Observações do Cliente</Label>
                 <Textarea 
                   id="notes" 
                   defaultValue={mockData.notes}
-                  placeholder="Add any additional notes about this customer..."
+                  placeholder="Adicione qualquer observação adicional sobre este cliente..."
                   rows={4}
                   className="bg-background border-border focus:ring-primary resize-none"
                 />
@@ -191,7 +191,7 @@ const CustomerForm = () => {
         <div className="space-y-6">
           <Card className="shadow-soft">
             <CardHeader>
-              <CardTitle className="text-foreground">Reading Preferences</CardTitle>
+              <CardTitle className="text-foreground">Preferências de Leitura</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
               {genres.map((genre) => (
@@ -214,7 +214,7 @@ const CustomerForm = () => {
 
           <Card className="shadow-soft">
             <CardHeader>
-              <CardTitle className="text-foreground">Quick Actions</CardTitle>
+              <CardTitle className="text-foreground">Ações Rápidas</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
               <Button 
@@ -222,21 +222,21 @@ const CustomerForm = () => {
                 className="w-full justify-start"
                 disabled={!isEdit}
               >
-                Send Welcome Email
+                Enviar E-mail de Boas-vindas
               </Button>
               <Button 
                 variant="outline" 
                 className="w-full justify-start"
                 disabled={!isEdit}
               >
-                View Order History
+                Ver Histórico de Pedidos
               </Button>
               <Button 
                 variant="outline" 
                 className="w-full justify-start"
                 disabled={!isEdit}
               >
-                Generate Report
+                Gerar Relatório
               </Button>
             </CardContent>
           </Card>
