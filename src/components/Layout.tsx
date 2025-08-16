@@ -10,7 +10,6 @@ const Layout = ({ children }: LayoutProps) => {
   const location = useLocation();
 
   const navigation = [
-    { name: 'Dashboard', href: '/', icon: Home },
     { name: 'Customers', href: '/customers', icon: Users },
   ];
 
@@ -28,7 +27,7 @@ const Layout = ({ children }: LayoutProps) => {
               {navigation.map((item) => {
                 const Icon = item.icon;
                 const isActive = location.pathname === item.href || 
-                  (item.href === '/customers' && location.pathname.startsWith('/customers'));
+                  location.pathname.startsWith('/customers');
                 
                 return (
                   <Link
