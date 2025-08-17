@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
-import { ArrowLeft, Mail, Phone, MapPin, Calendar, Edit, Trash2, Star, CreditCard, User, Hash } from 'lucide-react';
+import { ArrowLeft, Mail, Phone, MapPin, Calendar, Edit, Trash2, Star, CreditCard, User, Hash, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardContent, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -49,6 +49,13 @@ const mockCustomer = {
       lastFour: '5678',
       preferred: false
     }
+  ],
+  transactions: [
+    { id: 'T001', date: '15/01/2024', type: 'Compra', description: 'Livros de Literatura', amount: 'R$ 89,50', status: 'Aprovado' },
+    { id: 'T002', date: '02/01/2024', type: 'Compra', description: 'Coleção de Poesias', amount: 'R$ 124,75', status: 'Aprovado' },
+    { id: 'T003', date: '18/12/2023', type: 'Compra', description: 'Romance Histórico', amount: 'R$ 67,30', status: 'Aprovado' },
+    { id: 'T004', date: '05/12/2023', type: 'Estorno', description: 'Devolução - Livro Danificado', amount: '-R$ 32,00', status: 'Processado' },
+    { id: 'T005', date: '28/11/2023', type: 'Compra', description: 'Biografias Clássicas', amount: 'R$ 156,20', status: 'Aprovado' }
   ]
 };
 
@@ -111,10 +118,11 @@ const CustomerDetail = () => {
       </div>
 
       <Tabs defaultValue="overview" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-3">
+        <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="overview">Visão Geral</TabsTrigger>
           <TabsTrigger value="addresses">Endereços</TabsTrigger>
           <TabsTrigger value="cards">Cartões</TabsTrigger>
+          <TabsTrigger value="transactions">Transações</TabsTrigger>
         </TabsList>
 
         {/* Overview Tab */}
@@ -272,6 +280,68 @@ const CustomerDetail = () => {
               </Card>
             ))}
           </div>
+        </TabsContent>
+
+        {/* Transactions Tab */}
+        <TabsContent value="transactions" className="space-y-6">
+          <Card className="shadow-soft">
+            <CardHeader>
+              <CardTitle className="text-foreground">Histórico de Transações</CardTitle>
+              <p className="text-sm text-muted-foreground">
+                Todas as transações realizadas pelo cliente
+              </p>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {mockCustomer.transactions.map((transaction, index) => (
+                  <div key={transaction.id}>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-3">
+                        <FileText className="h-4 w-4 text-primary" />
+                        <div>
+                          <p className="font-medium text-foreground">{transaction.description}</p>
+                          <div className="flex items-center space-x-4 text-sm text-muted-foreground">
+                            <span>ID: {transaction.id}</span>
+                            <span>{transaction.date}</span>
+                            <Badge 
+                              variant="outline" 
+                              className={
+                                transaction.type === 'Compra' 
+                                  ? 'bg-green-50 text-green-700 border-green-200' 
+                                  : 'bg-orange-50 text-orange-700 border-orange-200'
+                              }
+                            >
+                              {transaction.type}
+                            </Badge>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className={`font-medium ${
+                          transaction.amount.startsWith('-') ? 'text-red-600' : 'text-green-600'
+                        }`}>
+                          {transaction.amount}
+                        </p>
+                        <Badge 
+                          variant="outline" 
+                          className={
+                            transaction.status === 'Aprovado' 
+                              ? 'text-xs bg-green-50 text-green-700 border-green-200'
+                              : 'text-xs bg-blue-50 text-blue-700 border-blue-200'
+                          }
+                        >
+                          {transaction.status}
+                        </Badge>
+                      </div>
+                    </div>
+                    {index < mockCustomer.transactions.length - 1 && (
+                      <Separator className="mt-4" />
+                    )}
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
         </TabsContent>
       </Tabs>
     </div>
