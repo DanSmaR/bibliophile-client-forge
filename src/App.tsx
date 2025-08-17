@@ -8,6 +8,9 @@ import Index from "./pages/Index";
 import Customers from "./pages/Customers";
 import CustomerDetail from "./pages/CustomerDetail";
 import CustomerForm from "./pages/CustomerForm";
+import CustomerTransactions from "./pages/CustomerTransactions";
+import CustomerPasswordChange from "./pages/CustomerPasswordChange";
+import CustomerAddresses from "./pages/CustomerAddresses";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -25,6 +28,9 @@ const App = () => (
             <Route path="/customers/new" element={<CustomerForm />} />
             <Route path="/customers/:id" element={<CustomerDetail />} />
             <Route path="/customers/:id/edit" element={<CustomerForm />} />
+            <Route path="/customers/:id/transactions" element={<CustomerTransactions />} />
+            <Route path="/customers/:id/password" element={<CustomerPasswordChange />} />
+            <Route path="/customers/:id/addresses" element={<CustomerAddresses />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
