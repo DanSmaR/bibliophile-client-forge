@@ -1,32 +1,68 @@
 import { Link, useParams } from 'react-router-dom';
-import { ArrowLeft, Mail, Phone, MapPin, Calendar, Package, DollarSign, Edit, Trash2 } from 'lucide-react';
+import { ArrowLeft, Mail, Phone, MapPin, Calendar, Edit, Trash2, Star, CreditCard, User, Hash } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardContent, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const mockCustomer = {
   id: 1,
+  customerId: 'CLI-001',
   name: 'Ana Silva',
+  gender: 'F',
+  birthDate: '15/05/1990',
+  cpf: '123.456.789-10',
   email: 'ana.silva@email.com',
-  phone: '+55 (11) 99123-4567',
+  phoneType: 'Celular',
+  phoneAreaCode: '11',
+  phoneNumber: '99123-4567',
   address: 'Rua das Letras, 123, São Paulo, SP 01234-567',
   status: 'Ativo',
-  orders: 12,
-  totalSpent: 'R$ 1.247,50',
+  ranking: 4,
   joinDate: '15/01/2023',
-  lastOrder: '15/01/2024',
-  notes: 'Prefere literatura clássica e coleções de poesia. Cliente frequente com pedidos de alto valor.',
-  preferences: ['Literatura Clássica', 'Poesia', 'Ficção Histórica'],
-  recentOrders: [
-    { id: 1001, date: '15/01/2024', total: 'R$ 89,50', status: 'Concluído' },
-    { id: 1000, date: '02/01/2024', total: 'R$ 124,75', status: 'Concluído' },
-    { id: 999, date: '18/12/2023', total: 'R$ 67,30', status: 'Concluído' }
+  notes: 'Cliente frequente, sempre pontual nos pagamentos.',
+  addresses: [
+    {
+      id: 1,
+      type: 'billing',
+      name: 'Endereço Residencial',
+      full: 'Rua das Letras, 123, Centro, São Paulo, SP, 01234-567'
+    },
+    {
+      id: 2,
+      type: 'delivery',
+      name: 'Trabalho',
+      full: 'Av. Paulista, 1000, Bela Vista, São Paulo, SP, 01310-100'
+    }
+  ],
+  creditCards: [
+    {
+      id: 1,
+      brand: 'Visa',
+      lastFour: '1234',
+      preferred: true
+    },
+    {
+      id: 2,
+      brand: 'Mastercard',
+      lastFour: '5678',
+      preferred: false
+    }
   ]
 };
 
 const CustomerDetail = () => {
   const { id } = useParams();
+
+  const getRankingStars = (ranking: number) => {
+    return Array.from({ length: 5 }, (_, i) => (
+      <Star
+        key={i}
+        className={`w-4 h-4 ${i < ranking ? 'fill-primary text-primary' : 'text-muted-foreground'}`}
+      />
+    ));
+  };
 
   return (
     <div className="space-y-6">
@@ -40,7 +76,15 @@ const CustomerDetail = () => {
           </Link>
           <div>
             <h1 className="text-3xl font-bold text-foreground">{mockCustomer.name}</h1>
-            <p className="text-muted-foreground">Cliente #{mockCustomer.id}</p>
+            <div className="flex items-center space-x-4 mt-1">
+              <p className="text-muted-foreground">{mockCustomer.customerId}</p>
+              <div className="flex items-center space-x-1">
+                {getRankingStars(mockCustomer.ranking)}
+                <span className="text-sm text-muted-foreground ml-2">
+                  Ranking {mockCustomer.ranking}/5
+                </span>
+              </div>
+            </div>
           </div>
           <Badge 
             variant={mockCustomer.status === 'Ativo' ? 'default' : 'secondary'}
@@ -61,136 +105,175 @@ const CustomerDetail = () => {
           </Link>
           <Button variant="destructive" className="bg-destructive hover:bg-destructive/90">
             <Trash2 className="h-4 w-4 mr-2" />
-            Excluir
+            {mockCustomer.status === 'Ativo' ? 'Inativar' : 'Excluir'}
           </Button>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Customer Information */}
-        <div className="lg:col-span-2 space-y-6">
-          <Card className="shadow-soft">
-            <CardHeader>
-              <CardTitle className="text-foreground">Informações de Contato</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="flex items-center space-x-3">
-                  <Mail className="h-5 w-5 text-primary" />
-                  <div>
-                    <p className="text-sm text-muted-foreground">E-mail</p>
-                    <p className="font-medium text-foreground">{mockCustomer.email}</p>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <Phone className="h-5 w-5 text-primary" />
-                  <div>
-                    <p className="text-sm text-muted-foreground">Telefone</p>
-                    <p className="font-medium text-foreground">{mockCustomer.phone}</p>
-                  </div>
-                </div>
-              </div>
-              <div className="flex items-start space-x-3">
-                <MapPin className="h-5 w-5 text-primary mt-0.5" />
-                <div>
-                  <p className="text-sm text-muted-foreground">Endereço</p>
-                  <p className="font-medium text-foreground">{mockCustomer.address}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+      <Tabs defaultValue="overview" className="space-y-6">
+        <TabsList className="grid w-full grid-cols-3">
+          <TabsTrigger value="overview">Visão Geral</TabsTrigger>
+          <TabsTrigger value="addresses">Endereços</TabsTrigger>
+          <TabsTrigger value="cards">Cartões</TabsTrigger>
+        </TabsList>
 
-          <Card className="shadow-soft">
-            <CardHeader>
-              <CardTitle className="text-foreground">Observações do Cliente</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-foreground leading-relaxed">{mockCustomer.notes}</p>
-            </CardContent>
-          </Card>
-
-          <Card className="shadow-soft">
-            <CardHeader>
-              <CardTitle className="text-foreground">Preferências de Leitura</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-wrap gap-2">
-                {mockCustomer.preferences.map((preference, index) => (
-                  <Badge key={index} variant="outline" className="bg-accent/10 text-accent border-accent/30">
-                    {preference}
-                  </Badge>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Stats and Recent Orders */}
-        <div className="space-y-6">
-          <Card className="shadow-soft">
-            <CardHeader>
-              <CardTitle className="text-foreground">Estatísticas do Cliente</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-2">
-                  <Package className="h-4 w-4 text-primary" />
-                  <span className="text-muted-foreground">Total de Pedidos</span>
-                </div>
-                <span className="font-semibold text-foreground">{mockCustomer.orders}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-2">
-                  <DollarSign className="h-4 w-4 text-accent" />
-                  <span className="text-muted-foreground">Total Gasto</span>
-                </div>
-                <span className="font-semibold text-accent">{mockCustomer.totalSpent}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-2">
-                  <Calendar className="h-4 w-4 text-primary" />
-                  <span className="text-muted-foreground">Cliente Desde</span>
-                </div>
-                <span className="font-semibold text-foreground">{mockCustomer.joinDate}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-2">
-                  <Calendar className="h-4 w-4 text-primary" />
-                  <span className="text-muted-foreground">Último Pedido</span>
-                </div>
-                <span className="font-semibold text-foreground">{mockCustomer.lastOrder}</span>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="shadow-soft">
-            <CardHeader>
-              <CardTitle className="text-foreground">Pedidos Recentes</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              {mockCustomer.recentOrders.map((order, index) => (
-                <div key={order.id}>
-                  <div className="flex items-center justify-between">
+        {/* Overview Tab */}
+        <TabsContent value="overview" className="space-y-6">
+          <div className="space-y-6">
+            <Card className="shadow-soft">
+              <CardHeader>
+                <CardTitle className="text-foreground">Informações Pessoais</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="flex items-center space-x-3">
+                    <User className="h-5 w-5 text-primary" />
                     <div>
-                      <p className="font-medium text-foreground">#{order.id}</p>
-                      <p className="text-sm text-muted-foreground">{order.date}</p>
-                    </div>
-                    <div className="text-right">
-                      <p className="font-medium text-accent">{order.total}</p>
-                      <Badge variant="outline" className="text-xs bg-forest-green/10 text-forest-green border-forest-green/30">
-                        {order.status}
-                      </Badge>
+                      <p className="text-sm text-muted-foreground">Nome Completo</p>
+                      <p className="font-medium text-foreground">{mockCustomer.name}</p>
                     </div>
                   </div>
-                  {index < mockCustomer.recentOrders.length - 1 && (
-                    <Separator className="mt-3" />
-                  )}
+                  <div className="flex items-center space-x-3">
+                    <Hash className="h-5 w-5 text-primary" />
+                    <div>
+                      <p className="text-sm text-muted-foreground">CPF</p>
+                      <p className="font-medium text-foreground">{mockCustomer.cpf}</p>
+                    </div>
+                  </div>
                 </div>
-              ))}
-            </CardContent>
-          </Card>
-        </div>
-      </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="flex items-center space-x-3">
+                    <Calendar className="h-5 w-5 text-primary" />
+                    <div>
+                      <p className="text-sm text-muted-foreground">Data de Nascimento</p>
+                      <p className="font-medium text-foreground">{mockCustomer.birthDate}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <User className="h-5 w-5 text-primary" />
+                    <div>
+                      <p className="text-sm text-muted-foreground">Gênero</p>
+                      <p className="font-medium text-foreground">
+                        {mockCustomer.gender === 'F' ? 'Feminino' : 'Masculino'}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="shadow-soft">
+              <CardHeader>
+                <CardTitle className="text-foreground">Informações de Contato</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="flex items-center space-x-3">
+                    <Mail className="h-5 w-5 text-primary" />
+                    <div>
+                      <p className="text-sm text-muted-foreground">E-mail</p>
+                      <p className="font-medium text-foreground">{mockCustomer.email}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <Phone className="h-5 w-5 text-primary" />
+                    <div>
+                      <p className="text-sm text-muted-foreground">Telefone ({mockCustomer.phoneType})</p>
+                      <p className="font-medium text-foreground">
+                        +55 ({mockCustomer.phoneAreaCode}) {mockCustomer.phoneNumber}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <MapPin className="h-5 w-5 text-primary mt-0.5" />
+                  <div>
+                    <p className="text-sm text-muted-foreground">Endereço Principal</p>
+                    <p className="font-medium text-foreground">{mockCustomer.address}</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="shadow-soft">
+              <CardHeader>
+                <CardTitle className="text-foreground">Observações do Cliente</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-foreground leading-relaxed">{mockCustomer.notes}</p>
+              </CardContent>
+            </Card>
+          </div>
+        </TabsContent>
+
+        {/* Addresses Tab */}
+        <TabsContent value="addresses" className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {mockCustomer.addresses.map((address) => (
+              <Card key={address.id} className="shadow-soft">
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <MapPin className="h-4 w-4 text-primary" />
+                      <CardTitle className="text-foreground">{address.name}</CardTitle>
+                    </div>
+                    <Badge variant={address.type === 'billing' ? 'default' : 'secondary'}>
+                      {address.type === 'billing' ? 'Cobrança' : 'Entrega'}
+                    </Badge>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-foreground">{address.full}</p>
+                  <div className="flex space-x-2 mt-4">
+                    <Link to={`/customers/${id}/addresses`}>
+                      <Button variant="outline" size="sm" className="flex-1">
+                        Editar
+                      </Button>
+                    </Link>
+                    <Button variant="ghost" size="sm">
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </TabsContent>
+
+        {/* Credit Cards Tab */}
+        <TabsContent value="cards" className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {mockCustomer.creditCards.map((card) => (
+              <Card key={card.id} className="shadow-soft">
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <CreditCard className="h-4 w-4 text-primary" />
+                      <CardTitle className="text-foreground">{card.brand}</CardTitle>
+                    </div>
+                    {card.preferred && (
+                      <Badge className="bg-primary text-primary-foreground">
+                        Preferencial
+                      </Badge>
+                    )}
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-foreground font-mono">**** **** **** {card.lastFour}</p>
+                  <div className="flex space-x-2 mt-4">
+                    <Button variant="outline" size="sm" className="flex-1">
+                      Editar
+                    </Button>
+                    <Button variant="ghost" size="sm">
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };
